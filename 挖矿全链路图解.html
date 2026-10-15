@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>加密货币挖矿全链路图解</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%230e9f6e'/%3E%3Cpath d='M11 23V9h6.2a4.6 4.6 0 0 1 2.9.9c.7.5 1 1.4 1 2.5 0 .8-.2 1.5-.6 2-.4.5-.9.9-1.6 1.1v.1c.9.2 1.6.6 2.1 1.2.5.7.8 1.4.8 2.3 0 1.4-.4 2.5-1.3 3.2-.8.8-2 1.1-3.5 1.1H11zm3.4-6.2h2.5c.9 0 1.6-.2 2-.7.4-.4.6-1 .6-1.7 0-.8-.2-1.4-.7-1.8-.4-.3-1-.5-2-.5h-2.4v4.7zm0 3.4v4.5h2.7c1 0 1.7-.2 2.2-.7.5-.5.8-1.1.8-1.9 0-1.7-.8-1.9-2.9-1.9h-2.8z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f5f7f9; --ink:#16233b; --sub:#5b6b81; --line:#d8e0e9;
+    --emerald:#0e9f6e; --emerald-soft:#e3f4ee; --amber:#d97706; --amber-soft:#fdf1e0;
+    --red:#dc2626; --slate:#334155; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Segoe UI","Microsoft YaHei UI","PingFang SC",sans-serif;
+       font-size:15px;line-height:1.65}
+  .wrap{max-width:1060px;margin:0 auto;padding:28px 20px 60px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px}
+  h1{font-size:26px;margin:0 0 4px;letter-spacing:.5px}
+  header p{margin:0;color:var(--sub);font-size:13.5px}
+  .kicker{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--emerald);
+          font-weight:700;margin-bottom:6px}
+  section{margin-top:30px}
+  h2{font-size:19px;margin:0 0 2px;display:flex;align-items:baseline;gap:10px}
+  h2 .no{font:700 14px/1 "Consolas",monospace;color:var(--emerald)}
+  .sec-sub{color:var(--sub);font-size:13.5px;margin:2px 0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .chartwrap{width:100%;overflow-x:auto}
+  .chart{width:100%;min-height:330px}
+  .chart-tall{min-height:400px}
+  .fallback{font-size:13px;color:var(--sub);padding:8px 4px}
+  table{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:6px}
+  colgroup col{display:table-column}
+  th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;
+        font-size:13.5px;vertical-align:top;word-wrap:break-word}
+  th{background:#eef2f6;font-weight:700;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  .tag{display:inline-block;padding:1px 8px;border-radius:20px;font-size:12px;font-weight:700}
+  .tag.pow{background:var(--emerald-soft);color:var(--emerald)}
+  .tag.pos{background:var(--amber-soft);color:var(--amber)}
+  .tag.off{background:#e8ecf1;color:var(--slate)}
+  .note{font-size:13px;color:var(--sub);margin-top:10px}
+  .note b{color:var(--ink)}
+  .red{color:var(--red);font-weight:700}
+  .green{color:var(--emerald);font-weight:700}
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;
+         font-size:12.5px;color:var(--sub)}
+  footer ul{margin:6px 0 0;padding-left:18px}
+  @media(max-width:640px){
+    .wrap{padding:20px 12px 48px}
+    h1{font-size:21px}
+    .chart{min-height:380px}
+    .chart-tall{min-height:430px}
+    #chartFlow{min-width:900px}
+    #chartWhere{min-width:980px}
+    #chartProfit{min-width:560px}
+    th,td{font-size:12.5px;padding:7px 5px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">EDUCATIONAL OVERVIEW · 教学示意图</div>
+  <h1>加密货币挖矿全链路图解</h1>
+  <p>从一笔交易到矿工拿到奖励，比特币存在哪里，以及挖矿到底赚不赚钱 —— 数据截至 2026-10-16</p>
+</header>
+
+<!-- ================= 1. 挖矿全链路 ================= -->
+<section>
+  <h2><span class="no">01</span>挖矿全链路：矿工是怎么"赚钱"的</h2>
+  <p class="sec-sub">一条交易从发出到写进账本，恰好经过 10 个环节。矿工只在第 4–6 步"干活"。</p>
+  <div class="card">
+    <div class="chartwrap">
+      <div id="chartFlow" class="chart">
+        <div class="fallback">流程：① 用户发起交易 → ② 广播到全网(P2P) → ③ 进入内存池 Mempool → ④ 矿工打包区块模板 → ⑤ 遍历 nonce 计算双重 SHA-256 → ⑥ 哈希 &lt; 目标？→ ⑦ 广播新区块 → ⑧ 全网节点验证 → ⑨ 写入账本、获得区块奖励+手续费 → ⑩ 每 2016 块按全网算力自动调整难度。</div>
+      </div>
+    </div>
+    <p class="note">矿工收入 = <b>区块奖励（coinbase，2026 年为 3.125 BTC）+ 区块内全部手续费</b>；
+      成本 = 电费 + 硬件折旧。系统每 2016 个区块调整一次难度，让全网平均出块时间恒定为 10 分钟 ——
+      算力涨 → 难度涨 → 单矿工份额缩水。</p>
+  </div>
+</section>
+
+<!-- ================= 2. 比特币存在哪里 ================= -->
+<section>
+  <h2><span class="no">02</span>比特币存在哪里？以什么形式？</h2>
+  <p class="sec-sub">没有"币文件"。它只是一本全网复制的账本 + 谁持有私钥。</p>
+  <div class="card">
+    <div class="chartwrap">
+      <div id="chartWhere" class="chart chart-tall">
+        <div class="fallback">比特币不存在实体文件：全网每个全节点保存一份完整区块链副本；账本的最小单位是 UTXO（未花费交易输出），由地址锁定；地址由公钥哈希生成，而唯一能花费 UTXO 的是持有对应私钥的人。钱包只是密钥管理工具，私钥丢失 = 资产永久消失。</div>
+      </div>
+    </div>
+    <p class="note">所谓"你有 3.2 BTC" = 账本上有一笔 <b>3.2 BTC 的 UTXO 用你的地址锁定</b>。
+      挖矿的本质是竞争<b>记账权</b>：谁先解出 PoW，谁就把这 10 分钟的交易写入账本，
+      并拿到系统凭空铸造的 coinbase 奖励 —— 这也是新比特币唯一的诞生方式。</p>
+  </div>
+</section>
+
+<!-- ================= 3. 盈利模型 ================= -->
+<section>
+  <h2><span class="no">03</span>挖矿赚不赚钱：一台蚂蚁 S21 的日收支</h2>
+  <p class="sec-sub">示例测算：200 TH/s · 3.5 kW · 全网 850 EH/s · 币价 $82,000 · 日产出 450 BTC —— 期望日收入仅 ≈ $8.7</p>
+  <div class="card">
+    <div class="chartwrap">
+      <div id="chartProfit" class="chart">
+        <div class="fallback">日收入 ≈ $8.7。英国居民电价（26.32p/kWh）下日电费 ≈ $28 → 日净亏 ≈ $19；美国工业电价（$0.045/kWh）下日净利 ≈ +$4.9，仍需 ~800 天回本且难度只增不减；只有自有廉价电才谈得上盈利。结论：普通电价下挖矿是负期望。</div>
+      </div>
+    </div>
+    <p class="note">不含硬件成本（S21 约 $4,000）与托管/散热/人工。每 4 年减半（下次 2028 年，
+      奖励降至 1.5625 BTC）还会再腰斩收入 —— <b>在居民电价环境里买矿机是负期望投资</b>。</p>
+  </div>
+</section>
+
+<!-- ================= 4. 各币种算法对照 ================= -->
+<section>
+  <h2><span class="no">04</span>"任何货币"的挖矿：算法 × 硬件对照</h2>
+  <p class="sec-sub">只有 PoW 币才"挖"；PoS 币靠质押，稳定币不产矿。</p>
+  <div class="card">
+    <table>
+      <colgroup><col style="width:15%"><col style="width:12%"><col style="width:24%"><col style="width:20%"><col style="width:14%"><col style="width:15%"></colgroup>
+      <thead>
+        <tr><th>币种</th><th>共识</th><th>哈希算法</th><th>典型硬件</th><th>ASIC 抗性</th><th>备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>比特币 BTC</td><td><span class="tag pow">PoW</span></td><td>SHA-256（双重）</td><td>ASIC 矿机</td><td>无</td><td>全网数百 EH/s，散户算力份额可忽略</td></tr>
+        <tr><td>莱特币 LTC</td><td><span class="tag pow">PoW</span></td><td>Scrypt</td><td>ASIC</td><td>早期有，已被攻克</td><td>与狗狗币合并挖矿</td></tr>
+        <tr><td>狗狗币 DOGE</td><td><span class="tag pow">PoW</span></td><td>Scrypt</td><td>ASIC（与 LTC 合并）</td><td>无</td><td>无限增发</td></tr>
+        <tr><td>门罗币 XMR</td><td><span class="tag pow">PoW</span></td><td>RandomX</td><td><b>CPU</b></td><td>强（专为 CPU 设计）</td><td>隐私币，内存硬依赖</td></tr>
+        <tr><td>卡斯帕 KASPA</td><td><span class="tag pow">PoW</span></td><td>kHeavyHash</td><td>GPU</td><td>部分</td><td>区块 DAG，高吞吐</td></tr>
+        <tr><td>以太坊 ETH</td><td><span class="tag pos">PoS</span></td><td>历史 Ethash / GPU</td><td>无挖矿</td><td>—</td><td>2022-09 起转 PoS，挖矿被质押替代</td></tr>
+        <tr><td>SOL / ADA / DOT</td><td><span class="tag pos">PoS</span></td><td>—</td><td>无挖矿</td><td>—</td><td>质押（staking）锁币生息</td></tr>
+        <tr><td>USDT / USDC</td><td><span class="tag off">中心化</span></td><td>—</td><td>无</td><td>—</td><td>稳定币，靠储备/增发，不产矿</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div>数据来源（2026-10-16 检索）：币价 ≈ $82,000（Finbold / XE）；全网难度 125.86 T、2026-10-15 下调 11.16%（BingX / CoinStats）；全网算力 ≈ 850 EH/s、难度历史峰值 155.97 T（CoinCentral / CryptoCompass）；英国电价 26.32p/kWh（Ofgem 2026 Q4 价格上限）；蚂蚁 S21 参数为矿机公开规格。</div>
+  <ul>
+    <li>本页为教学示意，非投资建议；图表中的盈利测算是基于上述公开数据的估算。</li>
+    <li>PoW 演示模拟器（带图形界面、localhost 运行、真实双重 SHA-256 哈希）见同目录 miner_sim/。</li>
+  </ul>
+</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var PALETTE = {ink:"#16233b", sub:"#5b6b81", emerald:"#0e9f6e", amber:"#d97706",
+                 red:"#dc2626", slate:"#334155", line:"#d8e0e9"};
+
+  function render(id, option){
+    var el = document.getElementById(id);
+    if(!el || typeof echarts === "undefined") return;
+    try{
+      el.innerHTML = "";
+      var chart = echarts.init(el);
+      chart.setOption(option);
+      window.addEventListener("resize", function(){ chart.resize(); });
+    }catch(e){ /* fallback text remains */ }
+  }
+
+  // ---------- 01 挖矿全链路（手工布局的有向图） ----------
+  var flowNodes = [
+    {x:0,   y:20,  label:"① 用户发起交易"},
+    {x:195, y:20,  label:"② 广播到全网\n(P2P 网络)"},
+    {x:390, y:20,  label:"③ 进入内存池\nMempool 排队"},
+    {x:585, y:20,  label:"④ 矿工打包区块模板\n(选手续费高的交易)"},
+    {x:780, y:20,  label:"⑤ 遍历 nonce\n计算双重 SHA-256"},
+    {x:780, y:235, label:"⑥ 哈希 < 目标?\n(前 N 位为 0)"},
+    {x:585, y:235, label:"⑦ 广播新区块\n(区块头+交易)"},
+    {x:390, y:235, label:"⑧ 全网节点验证\n(哈希/签名/双花)"},
+    {x:195, y:235, label:"⑨ 写入账本\n获得奖励 +3.125 BTC"},
+    {x:0,   y:235, label:"⑩ 难度自动调整\n(每 2016 块)"}
+  ];
+  var flowEdges = [];
+  var flowSeq = [0,1,2,3,4,5,6,7,8,9];
+  for(var i=0;i<flowSeq.length-1;i++){
+    flowEdges.push({source:flowSeq[i], target:flowSeq[i+1]});
+  }
+  render("chartFlow", {
+    backgroundColor:"transparent",
+    tooltip:{formatter:function(p){return p.data.label.replace("\n","<br>");}},
+    series:[{
+      type:"graph", layout:"none", roam:false,
+      data:flowNodes.map(function(n){
+        return {name:n.label, x:n.x, y:n.y, symbol:"roundRect",
+                symbolSize:[178,54], label:{show:true, position:"inside",
+                fontSize:12.5, lineHeight:16, color:PALETTE.ink, fontWeight:600},
+                itemStyle:{color:"#ffffff", borderColor:PALETTE.emerald, borderWidth:1.5}};
+      }),
+      links:flowEdges.map(function(e){
+        return {source:flowNodes[e.source].label, target:flowNodes[e.target].label,
+                lineStyle:{color:PALETTE.line, width:1.8, curveness:0.05},
+                symbol:["none","arrow"], symbolSize:8};
+      }),
+      label:{show:true}, emphasis:{focus:"adjacency"}
+    }]
+  });
+
+  // ---------- 02 比特币存在哪里 ----------
+  var whereNodes = [
+    {x:0,  y:0,   label:"比特币网络\n(分布式账本)", cls:"cluster"},
+    {x:185,y:0,   label:"全节点 A/B/C…\n各持完整区块链副本", cls:"node"},
+    {x:0,  y:190, label:"区块链\n(按时间串联的区块)", cls:"cluster"},
+    {x:185,y:190, label:"区块 #N\n(80 字节区块头 + 交易列表)", cls:"node"},
+    {x:370,y:190, label:"交易\n(输入→输出)", cls:"node"},
+    {x:555,y:190, label:"UTXO\n未花费交易输出", cls:"node"},
+    {x:555,y:380, label:"地址\n(公钥哈希)", cls:"node"},
+    {x:740,y:190, label:"私钥 Private Key\n(唯一控制权)", cls:"key"},
+    {x:740,y:380, label:"公钥", cls:"node"}
+  ];
+  var whereEdges = [
+    ["比特币网络\n(分布式账本)","全节点 A/B/C…\n各持完整区块链副本","保存副本"],
+    ["全节点 A/B/C…\n各持完整区块链副本","区块链\n(按时间串联的区块)","共同维护"],
+    ["区块链\n(按时间串联的区块)","区块 #N\n(80 字节区块头 + 交易列表)","包含"],
+    ["区块 #N\n(80 字节区块头 + 交易列表)","交易\n(输入→输出)","包含"],
+    ["交易\n(输入→输出)","UTXO\n未花费交易输出","产生/花费"],
+    ["UTXO\n未花费交易输出","地址\n(公钥哈希)","锁定到"],
+    ["私钥 Private Key\n(唯一控制权)","公钥","推导"],
+    ["公钥","地址\n(公钥哈希)","哈希生成"],
+    ["私钥 Private Key\n(唯一控制权)","UTXO\n未花费交易输出","签名即可花费"]
+  ];
+  render("chartWhere", {
+    backgroundColor:"transparent",
+    tooltip:{formatter:function(p){var e=whereEdges.filter(function(x){return x[1]===p.data.name;})[0];return p.data.name.replace("\n","<br>")+(e?("<br><span style='color:#5b6b81'>"+(e[2]||"")+"</span>"):"");}},
+    series:[{
+      type:"graph", layout:"none", roam:false,
+      data:whereNodes.map(function(n){
+        var isKey = n.cls==="key", isCluster = n.cls==="cluster";
+        return {name:n.label, x:n.x, y:n.y, symbol:"roundRect",
+                symbolSize:[170,60], label:{show:true, position:"inside",
+                fontSize:12, lineHeight:16, fontWeight:isCluster?700:600,
+                color:isKey?"#ffffff":PALETTE.ink},
+                itemStyle:{color:isKey?PALETTE.amber:(isCluster?"#e3f4ee":"#ffffff"),
+                           borderColor:isKey?PALETTE.amber:PALETTE.emerald,
+                           borderWidth:isCluster?1.2:1.5}};
+      }),
+      links:whereEdges.map(function(e){
+        return {source:e[0], target:e[1],
+                lineStyle:{color:PALETTE.line, width:1.6, curveness:0.08},
+                symbol:["none","arrow"], symbolSize:7};
+      }),
+      label:{show:true}, emphasis:{focus:"adjacency"}
+    }]
+  });
+
+  // ---------- 03 盈利模型 ----------
+  var scenarios = ["英国居民电价\n26.32p/kWh","美国工业电价\n$0.045/kWh","自有廉价电\n$0.01/kWh"];
+  render("chartProfit", {
+    backgroundColor:"transparent",
+    tooltip:{trigger:"axis", axisPointer:{type:"shadow"},
+             valueFormatter:function(v){return "$"+v.toFixed(1);}},
+    legend:{bottom:0, textStyle:{color:PALETTE.sub, fontSize:12}},
+    grid:{left:45, right:20, top:30, bottom:44},
+    xAxis:{type:"category", data:scenarios, axisLabel:{fontSize:12, color:PALETTE.sub, lineHeight:15}},
+    yAxis:{type:"value", name:"美元 / 天", nameTextStyle:{color:PALETTE.sub, fontSize:11},
+           axisLabel:{fontSize:11, color:PALETTE.sub}, splitLine:{lineStyle:{color:"#e8edf3"}}},
+    series:[
+      {name:"日收入(期望)", type:"bar", data:[8.7,8.7,8.7], barWidth:22,
+       itemStyle:{color:PALETTE.slate}, label:{show:true, position:"top", fontSize:11, color:PALETTE.sub}},
+      {name:"日电费", type:"bar", data:[28.1,3.78,0.84], barWidth:22,
+       itemStyle:{color:PALETTE.amber}},
+      {name:"日净利", type:"bar", data:[-19.4,4.9,7.8], barWidth:22,
+       itemStyle:{color:function(p){return p.value<0?PALETTE.red:PALETTE.emerald;}},
+       label:{show:true, position:function(p){return p.value<0?"bottom":"top";},
+              fontSize:11, fontWeight:700, color:function(p){return p.value<0?PALETTE.red:PALETTE.emerald;},
+              formatter:function(p){return "$"+p.value.toFixed(1);}}}
+    ]
+  });
+})();
+</script>
+</body>
+</html>

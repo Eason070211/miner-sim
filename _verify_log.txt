@@ -1,0 +1,68 @@
+﻿[FOUND] GPU 找到区块 #1  nonce=22  hash=00dbc86c2414fa8d...  获得 +3.125 BTC
+[FOUND] GPU 找到区块 #2  nonce=60  hash=008c14707ed151a9...  获得 +3.125 BTC
+  [live] height=2 zeros=2 cpu hash=1141f76c9b25cf75... gpu hash=a7e1538e105b0167...
+  [live] height=2 zeros=2 cpu hash=7c0d380593b32005... gpu hash=0fbfa0b79784ab3f...
+  [live] height=2 zeros=2 cpu hash=1e3642f7d833347c... gpu hash=706c7fa4615d7e22...
+[FOUND] GPU 找到区块 #3  nonce=241  hash=00d5aa4f3a8003fa...  获得 +3.125 BTC
+  [live] height=3 zeros=3 cpu hash=3a20d905f003ffe2... gpu hash=64a35aa72870ff7f...
+  [live] height=3 zeros=3 cpu hash=dffc9d4796fe4a60... gpu hash=42e98b02ec6c3582...
+  [live] height=3 zeros=3 cpu hash=4888bc846fd9d5f8... gpu hash=1815f2eb81c8205e...
+  [live] height=3 zeros=3 cpu hash=e030fee15e804545... gpu hash=e3c0b594c5c57100...
+  [live] height=3 zeros=3 cpu hash=84535c8011a05a9d... gpu hash=40a2f23ffc1ffb88...
+  [live] height=3 zeros=3 cpu hash=02c04c07aaafa433... gpu hash=85aef874f31fcb7c...
+  [live] height=3 zeros=3 cpu hash=647e8ad5683db229... gpu hash=2603ad0c8b73da24...
+  [live] height=3 zeros=3 cpu hash=677fca95e2ff85f4... gpu hash=038f6fed1b18c94e...
+{
+  "run_seconds": 14.19,
+  "blocks_mined": 3,
+  "difficulty_leading_zeros": 3,
+  "mempool_size": 0,
+  "cpu": {
+    "attempts": 303,
+    "blocks_found": 0,
+    "reward_btc": 0.0,
+    "hashrate_hps": 21.36
+  },
+  "gpu": {
+    "lanes": 4,
+    "attempts": 1215,
+    "blocks_found": 3,
+    "reward_btc": 9.375,
+    "hashrate_hps": 85.65
+  },
+  "integrity_ok": true,
+  "chain": [
+    {
+      "index": 0,
+      "nonce": 0,
+      "hash": "f8e959dd4bd79389b5893113",
+      "prev_hash": "000000000000000000000000",
+      "mined_by": "genesis",
+      "txs": 0
+    },
+    {
+      "index": 1,
+      "nonce": 22,
+      "hash": "00dbc86c2414fa8d3d061f1b",
+      "prev_hash": "f8e959dd4bd79389b5893113",
+      "mined_by": "GPU",
+      "txs": 8
+    },
+    {
+      "index": 2,
+      "nonce": 60,
+      "hash": "008c14707ed151a90f40dec4",
+      "prev_hash": "00dbc86c2414fa8d3d061f1b",
+      "mined_by": "GPU",
+      "txs": 0
+    },
+    {
+      "index": 3,
+      "nonce": 241,
+      "hash": "00d5aa4f3a8003fa3eb7ecc5",
+      "prev_hash": "008c14707ed151a90f40dec4",
+      "mined_by": "GPU",
+      "txs": 0
+    }
+  ]
+}
